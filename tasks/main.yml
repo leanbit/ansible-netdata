@@ -1,0 +1,47 @@
+---
+# tasks file for leanbit.netdata
+---
+  - name: NETDATA | Check if present
+    stat: path={{netdata_install_dir}}/netdata
+    register: netdata_present
+  - debug: msg="netdata not installed"
+    when: netdata_present.stat.exists == False
+  - debug: msg="netdata installed"
+    when: netdata_present.stat.exists == True
+
+  - name: NETDATA | Install package dependencies
+    apt: pkg='{{item}}' state=present
+    with_items: "{{netdata_deps}}"
+    when: netdata_present.stat.exists == False 
+    become: yes
+    tags:
+     - netdata 
+
+  - name: NETDATA | Clone or Pull for Install
+    git: repo=https://github.com/firehol/netdata.git dest={{netdata_install_dir}}/netdata depth="1" dest="/tmp/netdata"
+    register: clone_or_pull
+    tags:
+      - netdata
+  - debug: var=clone_or_pull
+
+  - name: NETDATA | Build and install
+    shell: "./netdata-installer.sh --install {{netdata_install_dir}} --dont-wait"
+    args:
+      chdir: /tmp/netdata
+    when: clone_or_pull.changed == True
+    become: yes
+    tags:
+      - netdata
+
+  - name: NETDATA | Configure Systemd
+    command: "{{item}}"
+    with_items:
+      - killall netdata
+      - cp /tmp/netdata/system/netdata.service /etc/systemd/system/
+      - systemctl daemon-reload
+      - systemctl enable netdata
+      - service netdata restart
+    when: clone_or_pull.changed == True
+    become: true
+    tags:
+      - netdata
