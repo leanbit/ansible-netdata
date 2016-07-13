@@ -1,6 +1,4 @@
 ---
-# tasks file for leanbit.netdata
----
   - name: NETDATA | Check if present
     stat: path={{netdata_install_dir}}/netdata
     register: netdata_present
