@@ -6,25 +6,25 @@ Install and update netdata.
 Requirements
 ------------
 
-- Systemd (optional)
+* Systemd (optional)
 
 Role Variables
 --------------
 
-netdata_install_dir: /opt
-netdata_systemd: True
-netdata_deps: 
-  - zlib1g-dev 
-  - uuid-dev 
-  - libmnl-dev 
-  - gcc 
-  - make 
-  - git 
-  - autoconf 
-  - autoconf-archive 
-  - autogen 
-  - automake 
-  - pkg-config
+    netdata_install_dir: /opt
+    netdata_systemd: True
+    netdata_deps: 
+      - zlib1g-dev 
+      - uuid-dev 
+      - libmnl-dev 
+      - gcc 
+      - make 
+      - git 
+      - autoconf 
+      - autoconf-archive 
+      - autogen 
+      - automake 
+      - pkg-config
 
 Example Playbook
 ----------------
