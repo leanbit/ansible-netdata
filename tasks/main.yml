@@ -15,7 +15,7 @@
     tags:
      - netdata 
 
-  - name: NETDATA | Clone or Pull for Install
+  - name: NETDATA | Clone or Pull for Install or Update
     git: repo=https://github.com/firehol/netdata.git dest={{netdata_install_dir}}/netdata depth="1" dest="/tmp/netdata"
     register: clone_or_pull
     tags:
@@ -39,7 +39,7 @@
       - systemctl daemon-reload
       - systemctl enable netdata
       - service netdata restart
-    when: clone_or_pull.changed == True
+    when: clone_or_pull.changed == True and netdata_systemd == True
     become: true
     tags:
       - netdata
