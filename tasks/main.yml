@@ -44,7 +44,7 @@
   - meta: flush_handlers
 
   - name: copy service file
-    command: cp "{{ netdata_download_dir }}/system/netdata.service /etc/systemd/system/netdata.service"
+    command: cp {{ netdata_download_dir }}/system/netdata.service /etc/systemd/system/netdata.service
     when: ansible_service_mgr == "systemd"
     notify: start and enable service
 
@@ -52,13 +52,3 @@
     command: cp /tmp/netdata/system/netdata-lsb /etc/init.d/netdata
     when: ansible_service_mgr == "init"
     notify: start and enable service
-
-  - name: start and enable service
-    service:
-      name: netdata
-      state: started
-      enabled: yes
-    when: clone_or_pull.changed == True
-    become: true
-    tags:
-      - netdata
