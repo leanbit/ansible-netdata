@@ -24,7 +24,7 @@
   - name: NETDATA | Clone or Pull for Install or Update
     git:
       repo: https://github.com/firehol/netdata.git
-      dest: "{{ netdata_download_dir }}"
+      dest: "{{ netdata_install_dir }}"
       depth: 1
     register: clone_or_pull
     tags:
@@ -32,9 +32,9 @@
   - debug: var=clone_or_pull
 
   - name: NETDATA | Build and install
-    shell: "./netdata-installer.sh --install {{ netdata_download_dir }} --dont-wait"
+    shell: "./netdata-installer.sh --install {{ netdata_install_dir }} --dont-wait"
     args:
-      chdir: "{{ netdata_download_dir }}"
+      chdir: "{{ netdata_install_dir }}"
     when: clone_or_pull.changed == True
     become: yes
     tags:
@@ -44,11 +44,11 @@
   - meta: flush_handlers
 
   - name: copy service file
-    command: cp {{ netdata_download_dir }}/system/netdata.service /etc/systemd/system/netdata.service
+    command: cp {{ netdata_install_dir }}/system/netdata.service /etc/systemd/system/netdata.service
     when: ansible_service_mgr == "systemd"
     notify: start and enable service
 
   - name: copy service file
-    command: cp /tmp/netdata/system/netdata-lsb /etc/init.d/netdata
+    command: cp {{ netdata_install_dir }}/system/netdata-lsb /etc/init.d/netdata
     when: ansible_service_mgr == "init"
     notify: start and enable service
