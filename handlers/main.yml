@@ -4,3 +4,14 @@
   service:
     name: netdata
     state: stopped
+
+- name: start and enable service
+  service:
+    name: netdata
+    state: started
+    enabled: yes
+    daemon_reload: yes
+  when: clone_or_pull.changed == True
+  become: true
+  tags:
+    - netdata
