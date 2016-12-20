@@ -42,7 +42,7 @@
       - netdata
     notify: stop service
 
-- meta: flush_handlers
+  - meta: flush_handlers
 
   - name: stop service
     service:
