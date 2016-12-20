@@ -4,6 +4,7 @@
   service:
     name: netdata
     state: stopped
+  when: netdata_present.stat.exists == True
 
 - name: start and enable service
   service:
@@ -11,7 +12,6 @@
     state: started
     enabled: yes
     daemon_reload: yes
-  when: clone_or_pull.changed == True
   become: true
   tags:
     - netdata
