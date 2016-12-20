@@ -1,11 +1,7 @@
 leanbit.netdata
 =========
 
-<<<<<<< HEAD
 [![Build Status](https://travis-ci.org/ymajik/ansible-role-netdata.svg?branch=master)](https://travis-ci.org/ymajik/ansible-role-netdata)
-=======
-[![Build Status](https://travis-ci.org/ymajik/ansible-role-netdata.svg?branch=feature-centos-compat)](https://travis-ci.org/ymajik/ansible-role-netdata)
->>>>>>> feature-centos-compat
 
 Install and update netdata.
 
