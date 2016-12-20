@@ -41,10 +41,10 @@
 
   - name: copy service file
     command: cp {{ netdata_install_dir }}/system/netdata.service /etc/systemd/system/netdata.service
-    when: ansible_service_mgr == "systemd"
+    when: clone_or_pull.changed == True and ansible_service_mgr == "systemd"
     notify: start and enable systemd
 
   - name: copy service file
     command: cp {{ netdata_install_dir }}/system/netdata-lsb /etc/init.d/netdata
-    when: ansible_service_mgr == "init"
+    when: clone_or_pull.changed == True and ansible_service_mgr == "init"
     notify: start and enable service
