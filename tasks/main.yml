@@ -4,7 +4,7 @@
 
   - name: NETDATA | Check if present
     stat:
-      path: "{{ netdata_install_dir }}/netdata"
+      path: "{{ netdata_binary }}"
     register: netdata_present
   - debug: msg="netdata not installed"
     when: netdata_present.stat.exists == False
@@ -24,18 +24,17 @@
   - name: NETDATA | Clone or Pull for Install or Update
     git:
       repo: https://github.com/firehol/netdata.git
-      dest: "{{ netdata_install_dir}}/netdata"
+      dest: "{{ netdata_download_dir }}"
       depth: 1
-      dest: /tmp/netdata
     register: clone_or_pull
     tags:
       - netdata
   - debug: var=clone_or_pull
 
   - name: NETDATA | Build and install
-    shell: "./netdata-installer.sh --install {{ netdata_install_dir }} --dont-wait"
+    shell: "./netdata-installer.sh --install {{ netdata_download_dir }} --dont-wait"
     args:
-      chdir: /tmp/netdata
+      chdir: "{{ netdata_download_dir }}"
     when: clone_or_pull.changed == True
     become: yes
     tags:
@@ -44,14 +43,8 @@
 
   - meta: flush_handlers
 
-  - name: stop service
-    service:
-      name: netdata
-      state: stopped
-    notify: copy service file
-
   - name: copy service file
-    command: cp /tmp/netdata/system/netdata.service /etc/systemd/system/
+    command: cp "{{ netdata_download_dir }}/system/netdata.service /etc/systemd/system/"
     when: ansible_service_mgr == systemd
     notify: start and enable service
 
