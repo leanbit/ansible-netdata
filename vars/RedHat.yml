@@ -1,4 +1,5 @@
 ---
+netdata_binary: /sbin/netdata
 netdata_deps:
   - autoconf
   - automake
