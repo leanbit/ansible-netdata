@@ -1,2 +1,6 @@
 ---
 # handlers file for leanbit.netdata
+- name: stop service
+  service:
+    name: netdata
+    state: stopped
