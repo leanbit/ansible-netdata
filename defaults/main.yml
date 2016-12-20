@@ -1,4 +1,3 @@
 ---
 # defaults file for leanbit.netdata
 netdata_install_dir: /opt
-netdata_systemd: True

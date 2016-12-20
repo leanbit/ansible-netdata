@@ -40,16 +40,32 @@
     become: yes
     tags:
       - netdata
+    notify: stop service
 
-  - name: NETDATA | Configure Systemd
-    command: "{{ item }}"
-    with_items:
-      - killall netdata
-      - cp /tmp/netdata/system/netdata.service /etc/systemd/system/
-      - systemctl daemon-reload
-      - systemctl enable netdata
-      - service netdata restart
-    when: clone_or_pull.changed == True and netdata_systemd == True
+- meta: flush_handlers
+
+  - name: stop service
+    service:
+      name: netdata
+      state: stopped
+    notify: copy service file
+
+  - name: copy service file
+    command: cp /tmp/netdata/system/netdata.service /etc/systemd/system/
+    when: ansible_service_mgr == systemd
+    notify: start and enable service
+
+  - name: copy service file
+    command: cp /tmp/netdata/system/netdata-lsb /etc/init.d/netdata
+    when: ansible_service_mgr == init
+    notify: start and enable service
+
+  - name: start and enable service
+    service:
+      name: netdata
+      state: started
+      enabled: yes
+    when: clone_or_pull.changed == True
     become: true
     tags:
       - netdata
