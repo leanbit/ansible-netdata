@@ -8,27 +8,15 @@ Install and update netdata.
 Requirements
 ------------
 
-* Systemd (optional)
+Ansible 2.2 or higher. Operating systems that use systemd as init system need the ansible systemd module.
 
 Role Variables
 --------------
 
 ```yaml
-    netdata_install_dir: /opt
-    netdata_systemd: True
-    netdata_deps:
-      - zlib1g-dev
-      - uuid-dev
-      - libmnl-dev
-      - gcc
-      - make
-      - git
-      - autoconf
-      - autoconf-archive
-      - autogen
-      - automake
-      - pkg-config
+    netdata_install_dir: /opt/netdata
 ```
+Netdata dependencies are loaded from within the vars file per operating system family (Debian or RedHat).
 
 Example Playbook
 ----------------
