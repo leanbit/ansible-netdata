@@ -1,0 +1,19 @@
+---
+netdata_binary: /sbin/netdata
+netdata_deps:
+  - autoconf
+  - automake
+  - curl
+  - gcc
+  - git
+  - libmnl-devel
+  - libuuid-devel
+  - lm_sensors
+  - make
+  - MySQL-python
+  - nc
+  - pkgconfig
+  - python
+  - python-psycopg2
+  - PyYAML
+  - zlib-devel

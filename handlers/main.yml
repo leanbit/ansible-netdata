@@ -1,2 +1,22 @@
 ---
 # handlers file for leanbit.netdata
+- name: stop service
+  service:
+    name: netdata
+    state: stopped
+  when: netdata_present.stat.exists == True
+
+- name: start and enable systemd
+  systemd:
+    name: netdata
+    state: started
+    enabled: yes
+    daemon_reload: yes
+  become: true
+
+- name: start and enable service
+  service:
+    name: netdata
+    state: started
+    enabled: yes
+  become: true
