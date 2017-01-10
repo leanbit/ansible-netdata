@@ -1,7 +1,7 @@
 leanbit.netdata
 =========
 
-Install and update netdata. 
+Install and update netdata.
 
 Requirements
 ------------
@@ -13,18 +13,19 @@ Role Variables
 
     netdata_install_dir: /opt
     netdata_systemd: True
-    netdata_deps: 
-      - zlib1g-dev 
-      - uuid-dev 
-      - libmnl-dev 
-      - gcc 
-      - make 
-      - git 
-      - autoconf 
-      - autoconf-archive 
-      - autogen 
-      - automake 
+    netdata_deps:
+      - zlib1g-dev
+      - uuid-dev
+      - libmnl-dev
+      - gcc
+      - make
+      - git
+      - autoconf
+      - autoconf-archive
+      - autogen
+      - automake
       - pkg-config
+    netdata_version: v1.4.0
 
 Example Playbook
 ----------------

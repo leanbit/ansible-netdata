@@ -1,6 +1,7 @@
 ---
   - name: NETDATA | Check if present
-    stat: path={{netdata_install_dir}}/netdata
+    stat:
+      path: "{{netdata_install_dir}}/netdata"
     register: netdata_present
   - debug: msg="netdata not installed"
     when: netdata_present.stat.exists == False
@@ -8,15 +9,22 @@
     when: netdata_present.stat.exists == True
 
   - name: NETDATA | Install package dependencies
-    apt: pkg='{{item}}' state=present
+    apt:
+      pkg: "{{item}}"
+      state: present
     with_items: "{{netdata_deps}}"
-    when: netdata_present.stat.exists == False 
+    when: netdata_present.stat.exists == False
     become: yes
     tags:
-     - netdata 
+     - netdata
 
   - name: NETDATA | Clone or Pull for Install or Update
-    git: repo=https://github.com/firehol/netdata.git dest={{netdata_install_dir}}/netdata depth="1" dest="/tmp/netdata"
+    git:
+      repo: https://github.com/firehol/netdata.git
+      dest: "{{netdata_install_dir}}/netdata"
+      depth: "1"
+      dest: "/tmp/netdata"
+      version: "{{ netdata_version }}"
     register: clone_or_pull
     tags:
       - netdata
