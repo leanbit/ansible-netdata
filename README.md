@@ -1,4 +1,4 @@
-leanbit.netdata
+ymajik.netdata
 =========
 
 [![Build Status](https://travis-ci.org/ymajik/ansible-role-netdata.svg?branch=master)](https://travis-ci.org/ymajik/ansible-role-netdata)
@@ -26,7 +26,7 @@ Including an example of how to use your role (for instance, with variables passe
 ```yaml
     - hosts: all
       roles:
-         - leanbit.netdata
+         - ymajik.netdata
 ```
 
 License
@@ -37,4 +37,4 @@ MIT
 Author Information
 ------------------
 
-Leanbit srl
+ymajik
