@@ -21,7 +21,6 @@
   - name: NETDATA | Clone or Pull for Install or Update
     git:
       repo: https://github.com/firehol/netdata.git
-      dest: "{{netdata_install_dir}}/netdata"
       depth: "1"
       dest: "/tmp/netdata"
       version: "{{ netdata_version }}"
