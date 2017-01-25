@@ -1,7 +1,7 @@
 ---
 galaxy_info:
   author: ymajik
-  description: Install and Update netdata
+  description: Install and update netdata
   company:
 
   # If the issue tracker for your role is not on github, uncomment the
