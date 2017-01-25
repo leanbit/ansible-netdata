@@ -19,6 +19,7 @@ Role Variables
     netdata_version: v1.5.0
 ```
 Netdata dependencies are loaded from within the vars file per operating system family (Debian or RedHat).
+If you want to install the latest netdata release, specify **HEAD** as netdata_version.
 
 Example Playbook
 ----------------
